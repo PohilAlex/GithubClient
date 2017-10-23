@@ -1,7 +1,9 @@
 package com.pokhyl.ghclient.model
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 class SearchRepoResult {
-    var total_count: Int = 0
-    var incomplete_results: Boolean = false
-    var items: List<Repo>? = null
+    @JsonProperty("total_count") var totalCount: Int = 0
+    @JsonProperty("incomplete_results") var incompleteResults: Boolean = false
+    @JsonProperty("items") var items: List<Repo>? = null
 }

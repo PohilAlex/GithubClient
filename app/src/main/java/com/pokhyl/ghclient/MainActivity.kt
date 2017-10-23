@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         Consumer { searchRepoResult ->
-                            Log.d("Test1", "totalCount " + searchRepoResult.total_count )
-                            repoAdapter.setRepoList(searchRepoResult.items)
+                            Log.d("Test1", "totalCount " + searchRepoResult.totalCount)
+                            repoAdapter.repoList = searchRepoResult.items ?: ArrayList();
                             recyclerView.visibility = View.VISIBLE
                             progressView.visibility = View.GONE
 

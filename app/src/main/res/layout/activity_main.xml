@@ -15,13 +15,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:imeOptions="flagNoExtractUi"
-            android:hint="Search repos"
+            android:hint="@string/search_repos"
             android:paddingLeft="15dp" />
         <Button
             android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"/>
+            android:text="@string/search"/>
     </LinearLayout>
 
     <FrameLayout

@@ -10,13 +10,10 @@ import java.util.*
 
 class RepoAdapter : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
 
-    private var repoList: List<Repo> = ArrayList<Repo>()
-
-    fun setRepoList(repoList: List<Repo>?) {
-        if (repoList != null) {
-            this.repoList = repoList
-            notifyDataSetChanged()
-        }
+    var repoList: List<Repo> = ArrayList<Repo>()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
