@@ -8,6 +8,9 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
+import com.github.salomonbrys.kodein.KodeinInjected
+import com.github.salomonbrys.kodein.KodeinInjector
+import com.github.salomonbrys.kodein.instance
 import com.pokhyl.ghclient.api.GitHubRepoService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -15,12 +18,14 @@ import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.jackson.JacksonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KodeinInjected  {
 
-    lateinit var retrofit: Retrofit
+    override val injector = KodeinInjector()
+
+    val retrofit: Retrofit by instance()
+    //private val kodein by injector.kodein()
+
     lateinit var gitHubRepoService: GitHubRepoService
     lateinit var recyclerView : RecyclerView
     lateinit var searchView : EditText
@@ -30,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        injector.inject(GithubClientApplication.instance.kodein)
 
         initRetrofit();
         initViews();
@@ -65,11 +72,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRetrofit() {
-        retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build()
         gitHubRepoService = retrofit.create(GitHubRepoService::class.java)
     }
 }
